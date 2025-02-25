@@ -1,0 +1,5 @@
+config BR2_PACKAGE_MSCC_GPIO_CTRL
+	bool "mscc-gpio-ctrl"
+	help
+	  Tool for controlling the gpio devices
+

@@ -1,0 +1,33 @@
+config BR2_PACKAGE_MSCC_CML_UTILS
+	bool "mscc-cml-utils"
+	select BR2_PACKAGE_LIBNL
+	help
+	  Tool for reading registers
+
+if BR2_PACKAGE_MSCC_CML_UTILS
+
+config BR2_PACKAGE_MSCC_CML_UTILS_LAN966X
+	bool "symreg-lan966x"
+	default n
+	help
+	  enable the symreg build for LAN966X chips
+
+config BR2_PACKAGE_MSCC_CML_UTILS_SPARX5
+	bool "symreg-sparx5"
+	default n
+	help
+	  enable the symreg build for SPARX5 chips
+
+config BR2_PACKAGE_MSCC_CML_UTILS_LAN969X
+	bool "symreg-lan969x"
+	default n
+	help
+	  enable the symreg build for LAN969x chips
+
+config BR2_PACKAGE_MSCC_CML_UTILS_VCAP_TOOL
+	bool "common-vcap"
+	default n
+	help
+	  enable the common VCAP tool build for LAN966x, Sparx5 or LAN969x
+
+endif

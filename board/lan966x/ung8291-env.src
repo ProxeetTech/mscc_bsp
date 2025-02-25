@@ -1,0 +1,50 @@
+echo Source file for setting U-Boot environment variables on a UNG8291 board.
+
+echo Compile: \'mkimage -T script -C none -n 'UNG8291 environment setup script' -d ung8291-env.src ung8291-env.img\'
+echo Load: \'dhcp 0x64000000 ung8291-env.img\'
+echo Run: \'source 0x64000000\'
+
+echo === Reset environment to default ===
+env default -a
+
+echo === U-Boot settings ===
+env set baudrate     115200
+env set div_512     'setexpr _tmp_ ${filesize} + 0x1ff; setexpr filesize_512 ${_tmp_} / 0x200; env set _tmp_'
+env set loadaddr     0x64000000
+env set fdt_high     0xffffffff
+env set initrd_high  0xffffffff
+env set itb_cfg      lan9662_ung8291_0_at_lan966x
+env set boot_dhcp   'run ba_set_ram; dhcp ${loadaddr} fit.itb; bootm ${loadaddr}#${itb_cfg}'
+env set boot_mmc_p1 'run ba_set_ram; mmc read ${loadaddr} ${mmc_p1} 0x8000; bootm ${loadaddr}#${itb_cfg}'
+env set boot_mmc_p2 'run ba_set_mmc_p4; mmc read ${loadaddr} ${mmc_p2} 0x2000; bootm ${loadaddr}#${itb_cfg}'
+env set boot_mmc_p3 'run ba_set_mmc_p3; ext4load ${mmc_dev}:3 ${loadaddr} /boot/ext4-itb-bare.itb; bootm ${loadaddr}#${itb_cfg}'
+env set bootcmd      run boot_dhcp
+env set bootdelay    3
+
+echo === Partitioning settings ===
+env set mmc_dev     mmc 0
+env set mmc_format 'gpt write ${mmc_dev} ${mmc_part}'
+env set mmc_guid    f1dec543-ef12-47db-ba24-4d3b6308872e
+env set mmc_p1      0x000022
+env set mmc_p2      0x040022
+env set mmc_p3      0x080022
+env set mmc_p4      0x180022
+env set mmc_p5      0x280022
+env set mmc_part   'uuid_disk=${mmc_guid};name=Boot0,size=128MiB,type=linux;name=Boot1,size=128MiB,type=linux;name=RootFs0,size=512MiB,type=linux;name=RootFs1,size=512MiB,type=linux;name=Data,size=-,type=linux;'
+
+echo === Linux kernel settings ===
+env set bootargs      'console=ttyS0,115200 loglevel=7 io_pdrv_genirq.of_id=generic-uio mtdparts=spi0:80k(SPL),944k(Uboot),256k(Env),256k(Env.bk)'
+env set ba_set_mmc_p3 'env set bootargs ${bootargs} root=/dev/mmcblk0p3 rootwait'
+env set ba_set_mmc_p4 'env set bootargs ${bootargs} root=/dev/mmcblk0p4 rootwait'
+env set ba_set_ram    'env set bootargs ${bootargs} root=/dev/ram0'
+
+echo === Write to eMMC settings ===
+env set load_fit           'dhcp ${loadaddr} fit.itb; run div_512; mmc write ${loadaddr} ${mmc_p1} ${filesize_512}'
+env set load_itb_bare      'dhcp ${loadaddr} itb-bare.itb; run div_512; mmc write ${loadaddr} ${mmc_p2} ${filesize_512}'
+env set load_ext4_bare     'dhcp ${loadaddr} ext4-bare.ext4; run div_512; mmc write ${loadaddr} ${mmc_p4} ${filesize_512}'
+env set load_ext4_itb_bare 'dhcp ${loadaddr} ext4-itb-bare.ext4; run div_512; mmc write ${loadaddr} ${mmc_p3} ${filesize_512}'
+
+echo === Save environment variables ===
+env save
+
+

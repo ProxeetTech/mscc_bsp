@@ -1,0 +1,26 @@
+From 650da63b21ceda395045e7bcd267b8b26b3bf20b Mon Sep 17 00:00:00 2001
+From: Horatiu Vultur <horatiu.vultur@microchip.com>
+Date: Wed, 20 Feb 2019 14:28:07 +0100
+Subject: [PATCH 2/7] com2SecList free-export
+
+---
+ include/net-snmp/library/snmpUDPDomain.h | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/include/net-snmp/library/snmpUDPDomain.h b/include/net-snmp/library/snmpUDPDomain.h
+index ac8d122..e2583be 100644
+--- a/include/net-snmp/library/snmpUDPDomain.h
++++ b/include/net-snmp/library/snmpUDPDomain.h
+@@ -64,6 +64,9 @@ void            netsnmp_udp_agent_config_tokens_register(void);
+ NETSNMP_IMPORT
+ void            netsnmp_udp_parse_security(const char *token, char *param);
+ 
++NETSNMP_IMPORT
++void            netsnmp_udp_com2SecList_free(void);
++
+ NETSNMP_IMPORT
+ int             netsnmp_udp_getSecName(void *opaque, int olength,
+                                        const char *community,
+-- 
+2.38.0
+

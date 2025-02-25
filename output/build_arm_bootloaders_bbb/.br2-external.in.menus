@@ -1,0 +1,10 @@
+#
+# Automatically generated file; DO NOT EDIT.
+#
+
+menu "External options"
+
+comment "Packages used by MSCC (in /home/jenkins/workspace/workspace/uildroot-layer_2024.12-soak-53K4HQKQZ3GAT5LLFJOV4C3542MQ6JDRNGG7GUC4NZK77OMALONA/ws/mscc-brsdk-source-2024.02.6-105-2024.12-soak/external)"
+source "/home/jenkins/workspace/workspace/uildroot-layer_2024.12-soak-53K4HQKQZ3GAT5LLFJOV4C3542MQ6JDRNGG7GUC4NZK77OMALONA/ws/mscc-brsdk-source-2024.02.6-105-2024.12-soak/external/Config.in"
+
+endmenu

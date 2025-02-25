@@ -1,0 +1,24 @@
+---
+defconfig_name: "x86_64_standalone_defconfig"
+append_files:
+    - config_file: "external/configs/x86_64_standalone_defconfig"
+      files:
+        - br_target/br_target_x86_64.config
+        - br_toolchain/br_toolchain_x86_64_glib.config
+        - br_misc/br_tuning.config
+        - br_linux/br_linux.config
+        - br_board/br_board_x86_64_standalone.config
+        - br_misc/br_standalone.config
+        - br_misc/br_host_tools.config
+        - br_board/br_board_disk.config
+      inline: |
+        BR2_PACKAGE_STRESS_NG=y
+        BR2_PACKAGE_MSCC_OTP=y
+        BR2_PACKAGE_MSCC_MERA=y
+        BR2_PACKAGE_MSCC_RTLABS_PNET=y
+        BR2_PACKAGE_MSCC_OSAL=y
+
+output_packet: "mscc-brsdk-x86_64"
+output_path: "x86_64-nocona-linux-gnu/standalone/release"
+sdk_path: "x86_64-nocona-linux-gnu/standalone/release/x86_64-linux"
+arch: "x86_64"

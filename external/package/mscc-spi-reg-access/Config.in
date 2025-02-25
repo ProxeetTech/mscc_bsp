@@ -1,0 +1,5 @@
+config BR2_PACKAGE_MSCC_SPI_REG_ACCESS
+	bool "mscc-spi-reg-access"
+	help
+	  Tool for accessing registers in a Switch SoC via a SPI interface
+

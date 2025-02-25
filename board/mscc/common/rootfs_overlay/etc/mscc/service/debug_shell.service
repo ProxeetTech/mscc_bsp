@@ -1,0 +1,8 @@
+# START OF CONFIG FILE
+name = debug_shell
+type = service
+# ASAN_OPTIONS is needed by Clang AddressSanitizer
+env = ASAN_OPTIONS=alloc_dealloc_mismatch=0
+cmd = /sbin/getty -L console 0 vt100
+serviced_profile = debug
+# END OF CONFIG FILE

@@ -1,0 +1,5 @@
+config BR2_PACKAGE_MSCC_MULTICAST_TOOLS
+	bool "mscc multicast tools"
+	help
+	  Tool for register and send multicast frames
+

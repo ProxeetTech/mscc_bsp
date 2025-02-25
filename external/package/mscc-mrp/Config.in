@@ -1,0 +1,8 @@
+config BR2_PACKAGE_MSCC_MRP
+	bool "mscc-mrp"
+	select BR2_PACKAGE_LIBNL
+	select BR2_PACKAGE_LIBEV
+	select BR2_PACKAGE_LIBMNL
+	select BR2_PACKAGE_MSCC_CFM
+	help
+	  Media Redundancy Protocol state machine

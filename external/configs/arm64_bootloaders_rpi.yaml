@@ -1,0 +1,21 @@
+---
+defconfig_name: "arm64_bootloaders_rpi_defconfig"
+append_files:
+    - config_file: "external/configs/arm64_bootloaders_rpi_defconfig"
+      files:
+        - br_target/br_target_arm64.config
+        - br_toolchain/br_toolchain_arm64_glib.config
+        - br_misc/br_tuning.config
+        - br_uboot/br_uboot_rpi.config
+        - br_uboot/br_uboot_utils.config
+      inline: |
+        BR2_TARGET_UBOOT_CONFIG_FRAGMENT_FILES="board/raspberrypi/u-boot.config"
+        # BR2_TARGET_ROOTFS_TAR is not set
+        BR2_ROOTFS_POST_IMAGE_SCRIPT="board/raspberrypi/cp-readme.sh"
+    - config_file: "board/raspberrypi/u-boot.config"
+      inline: |
+        CONFIG_FIT=y
+
+output_packet: "mscc-brsdk-arm64"
+output_path: "arm64-armv8_a-linux-gnu/bootloaders/rpi"
+arch: "arm64"

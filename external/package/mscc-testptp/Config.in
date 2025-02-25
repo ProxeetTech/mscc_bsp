@@ -1,0 +1,5 @@
+config BR2_PACKAGE_MSCC_TESTPTP
+	bool "mscc-testptp"
+	help
+	  Tool for testing ptp
+

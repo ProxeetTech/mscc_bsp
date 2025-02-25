@@ -1,0 +1,45 @@
+From 66c548eaf1cc24f07d1166266e9c2a2b0242eace Mon Sep 17 00:00:00 2001
+From: Horatiu Vultur <horatiu.vultur@microchip.com>
+Date: Mon, 4 Dec 2023 22:03:12 +0100
+Subject: [PATCH] Hack for buildroot
+
+---
+ src/drivers/lan9662/add_mera_lib.cmake | 25 +------------------------
+ 1 file changed, 1 insertion(+), 24 deletions(-)
+
+diff --git a/src/drivers/lan9662/add_mera_lib.cmake b/src/drivers/lan9662/add_mera_lib.cmake
+index 005825a..dbcfd22 100644
+--- a/src/drivers/lan9662/add_mera_lib.cmake
++++ b/src/drivers/lan9662/add_mera_lib.cmake
+@@ -16,27 +16,4 @@
+ 
+ cmake_minimum_required(VERSION 3.14)
+ 
+-# Attempt to find externally built mera library
+-find_package(mera QUIET)
+-
+-if (NOT mera_FOUND)
+-  # Download and build mera locally as a static library
+-  # Todo: this is a private repo. Switch to public repo before release
+-  message(STATUS "Fetch mera from github")
+-  include(FetchContent)
+-  FetchContent_Declare(
+-    mera
+-    GIT_REPOSITORY      https://github.com/microchip-ung/rtlabs-mera
+-    GIT_TAG             b9d43d5
+-    )
+-
+-  FetchContent_GetProperties(mera)
+-  if(NOT mera_POPULATED)
+-    FetchContent_Populate(mera)
+-    set(BUILD_SHARED_LIBS_OLD ${BUILD_SHARED_LIBS})
+-    set(BUILD_SHARED_LIBS OFF CACHE INTERNAL "" FORCE)
+-    add_subdirectory(${mera_SOURCE_DIR} ${mera_BINARY_DIR} EXCLUDE_FROM_ALL)
+-    set(BUILD_SHARED_LIBS ${BUILD_SHARED_LIBS_OLD} CACHE BOOL "" FORCE)
+-  endif()
+-
+-endif()
++add_subdirectory("../mscc-mera-ac92e085126088355d49c69e6d27057e2bc351ef" "./mera-build" EXCLUDE_FROM_ALL)
+-- 
+2.34.1
+

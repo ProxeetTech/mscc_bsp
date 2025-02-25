@@ -1,0 +1,4 @@
+config BR2_PACKAGE_MSCC_TINY_LLDPD
+	bool "mscc-tiny-lldpd"
+	help
+	  Tool for starting lldpd

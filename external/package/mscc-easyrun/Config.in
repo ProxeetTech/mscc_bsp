@@ -1,0 +1,5 @@
+config BR2_PACKAGE_MSCC_EASYRUN
+	bool "mscc-easyrun"
+	help
+	  Tool for generating frames
+

@@ -1,0 +1,4 @@
+config BR2_PACKAGE_MSCC_DTS_OVERLAYS
+	bool "mscc-dts-overlays"
+	help
+	  Build dts overlays

@@ -1,0 +1,35 @@
+---
+defconfig_name: "arm_xstax_defconfig"
+append_files:
+    - config_file: "external/configs/arm_xstax_defconfig"
+      files:
+        - br_target/br_target_arm.config
+        - br_toolchain/br_toolchain_arm_glib.config
+        - br_misc/br_tuning.config
+        - br_linux/br_linux_arm.config
+        - br_board/br_board_arm_xstax.config
+        - br_misc/br_xstax.config
+        - br_misc/br_host_tools.config
+        - br_board/br_board_disk.config
+      inline: |
+        BR2_LINUX_KERNEL_CONFIG_FRAGMENT_FILES="board/microchip/xstax/arm_kernel.config"
+        BR2_PACKAGE_MSCC_OTP=y
+        BR2_PACKAGE_PYTHON3=y
+        BR2_PACKAGE_PYTHON_SMBUS_CFFI=y
+        BR2_PACKAGE_CRYPTSETUP=y
+        BR2_PACKAGE_MSCC_CML_UTILS=y
+        BR2_PACKAGE_MSCC_CML_UTILS_LAN966X=y
+        BR2_PACKAGE_MSCC_CML_UTILS_VCAP_TOOL=y
+        # BR2_PACKAGE_MSCC_CML_UTILS_SPARX5 is not set
+        # BR2_PACKAGE_MSCC_CML_UTILS_LAN969X is not set
+    - config_file: "package/busybox/mscc_fragment.config"
+      files:
+        - busybox_config/busybox_fragment.config
+    - config_file: "board/microchip/xstax/arm_kernel.config"
+      files:
+        - linux_config/linux_iptables.config
+
+output_packet: "mscc-brsdk-arm"
+output_path: "arm-cortex_a8-linux-gnu/xstax/release"
+sdk_path: "arm-cortex_a8-linux-gnu/xstax/release/x86_64-linux"
+arch: "arm"

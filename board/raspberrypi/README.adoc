@@ -1,0 +1,277 @@
+= Raspberry PI 4 Compute Module as external CPU for a LAN966x PCIe NIC Card or a
+EVB-LAN9696-24port
+
+== LAN966x PCIe NIC Card
+
+=== Preparing the PCIe NIC card
+
+The PCIe Endpoint on the NIC card must expose the
+
+* PCI Vendor ID: SMSC (1055)
+* PCI Device ID: (9660)
+* PCI Device Class: Networking Device (0x020000)
+
+If the device class is missing the RPI4's PCIe controller will refuse to map the
+BARs and read operations will result in an Asynchroneous SError.
+
+For the A0 LAN966x that means that you will have to flash the NOR flash on the
+EVB with the image built from this repo:
+
+ssh://git@bitbucket.microchip.com/unge/sw-lan966x-spl.git
+
+using the master.pci branch.
+
+For the B0 LAN966x you need to ensure that the PCIe strapping mode is selected:
+This is done with 4 resistors on the EVB.
+
+=== Image building
+
+The arm64_standalone_rpi generates a disk image file (rpicm4.img) which contains
+a partiontable with two partitions
+
+1) FAT32 boot partition
+
+This contains the RPI4 bootloader (start4.elf) and configuration (config.txt)
+that points to the u-boot binary and is configuration (uboot.env)
+
+It also contains a U-Boot FIT image that contains a Linux Kernel and a Linux
+Device Tree that enables the use of the LAN966x PCIe NIC card via the PCIe
+connection.
+
+2) An EXT4 root partition
+
+This contains the root file system used by the Linux Kernel and is expected to
+be referred when loading the kernel from u-boot.
+
+=== U-Boot
+
+U-Boot loads its environment and executes the bootcmd which is preconfigured to
+load the fit.itb and jump to the Linux Kernel using the contained device tree.
+
+It also points to the EXT4 partition as its Linux root file system.
+
+=== Linux Kernel
+
+The Linux Kernel will use the device tree to load drivers and one of them is the
+PCIe MFD driver that contains the tree of LAN966x drivers that controls the
+LAN966x switch and peripherals.
+
+If the LAN966x PCIe NIC card is not present the drivers will not get loaded.
+
+If the card is present there will be 4 additional network interfaces available
+beside the eth0 found on the RPI4 IO Board.
+
+=== Using the setup
+
+Attaching a serial connection (USB-to-RS232C) to the RPI4 IO Boards PIN-header
+will allow you to inspect the boot sequence and then login to Linux as root
+without a password.
+
+From here you can e.g edit the /etc/network/interface to configure the eth0
+situated on the RPI4 IO Board with a static IPv4 address, like in the example
+below:
+
+```
+auto eth0
+iface eth0 inet static
+address 1.0.1.100
+netmask 255.255.255.0
+```
+
+The dropbear SSH server will now allow you to login via this network
+connection.
+
+== EVB-LAN9696-24port
+
+=== Preparing the EVB-LAN9696-24port
+
+The PCIe Endpoint Mode requires a special image build for this purpose that must
+be flashed to the QSPI NOR flash of the EVB.
+
+This is built by the TFA project:
+https://github.com/microchip-ung/arm-trusted-firmware by building the
+lan969x_pcie target and flashing the resulting fip.bin in the QSPI NOR Flash.
+
+The bootstrap mode must then be setup to boot from QSPI NOR.
+
+=== Image building
+
+Like for the LAN966x PCIe NIC card above the build uses the exact same disk
+image file (rpicm4.img) with the same content.
+
+=== U-Boot
+
+Just like the PCIe NIC card setup above U-Boot loads its environment and
+executes the bootcmd which is preconfigured to load the fit.itb and jump to the
+Linux Kernel using the contained device tree.
+
+It also points to the EXT4 partition as its Linux root file system.
+
+The only difference for LAN969x compared to LAN966x PCIe NIC setup is that when
+the U-Boot FIT image stored in the FAT32 boot partition is loaded the bootm
+command must use a different configuration.
+
+If you load the FIT image manually and inspect it with `iminfo` you will notice
+that there is a `rpi-lan969x`
+
+----
+U-Boot> load mmc 0:1 0x10000000 fit.itb
+9263631 bytes read in 481 ms (18.4 MiB/s)
+U-Boot> iminfo 0x10000000
+
+## Checking Image at 10000000 ...
+   FIT image found
+   FIT description: Image Tree Source file for rpi4cm
+    Image 0 (kernel)
+     Description:  Kernel
+     Type:         Kernel Image
+     Compression:  gzip compressed
+     Data Start:   0x100000c8
+     Data Size:    9110131 Bytes = 8.7 MiB
+     Architecture: AArch64
+     OS:           Linux
+     Load Address: 0x00080000
+     Entry Point:  0x00080000
+    Image 1 (fdt_rpi)
+     Description:  Flattened Device Tree
+     Type:         Flat Device Tree
+     Compression:  uncompressed
+     Data Start:   0x108b03f4
+     Data Size:    47686 Bytes = 46.6 KiB
+     Architecture: AArch64
+     Load Address: 0x0e000000
+    Image 2 (fdt_rpi-lan969x)
+     Description:  Flattened Device Tree
+     Type:         Flat Device Tree
+     Compression:  uncompressed
+     Data Start:   0x108bbed4
+     Data Size:    57347 Bytes = 56 KiB
+     Architecture: AArch64
+     Load Address: 0x0e000000
+    Image 3 (fdt_pcb8309)
+     Description:  Flattened Device Tree
+     Type:         Flat Device Tree
+     Compression:  uncompressed
+     Data Start:   0x108c9f6c
+     Data Size:    46245 Bytes = 45.2 KiB
+     Architecture: AArch64
+     Load Address: 0x0e000000
+    Default Configuration: 'rpi'
+    Configuration 0 (rpi)
+     Description:  Kernel with DT fdt_rpi
+     Kernel:       kernel
+     FDT:          fdt_rpi
+    Configuration 1 (rpi-lan969x)
+     Description:  Kernel with DT fdt_rpi-lan969x
+     Kernel:       kernel
+     FDT:          fdt_rpi-lan969x
+    Configuration 2 (pcb8309)
+     Description:  Kernel with DT fdt_pcb8309
+     Kernel:       kernel
+     FDT:          fdt_pcb8309
+## Checking hash(es) for FIT Image at 10000000 ...
+   Hash(es) for Image 0 (kernel): 
+   Hash(es) for Image 1 (fdt_rpi): 
+   Hash(es) for Image 2 (fdt_rpi-lan969x): 
+   Hash(es) for Image 3 (fdt_pcb8309): 
+----
+
+If you want to load and boot directly into that configuration, you can use this
+command:
+
+----
+U-Boot> load mmc 0:1 0x10000000 fit.itb ; bootm 0x10000000#rpi-lan969x
+----
+
+Just before booting the kernel on the RPi4 CM, you need to reset the
+EVB-LAN9696-24port board.  You can use the reset button on the board to do that.
+
+Unfortunately the RPi4 cannot reset the LAN969x SoC without also resetting the
+PCIe Link, so this is why you need to do the reset before you initialize the
+PCIe connection to the EVB-LAN9696-24port.
+
+In the Linux console you can now check that the PCIe connection is operational
+by listing the PCIe devices seen from the host:
+
+----
+# lspci
+00:00.0 PCI bridge: Broadcom Inc. and subsidiaries BCM2711 PCIe Bridge (rev 20)
+01:00.0 Ethernet controller: Microchip Technology / SMSC Device 9690
+#
+----
+
+You can also verify that you have network interfaces on the host that is exposed
+from the EVB-LAN9696-24port via the PCIe connection:
+
+----
+# ip l
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: eth0: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether d8:3a:dd:06:4a:9e brd ff:ff:ff:ff:ff:ff
+3: sit0@NONE: <NOARP> mtu 1480 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/sit 0.0.0.0 brd 0.0.0.0
+4: swp0: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:01 brd ff:ff:ff:ff:ff:ff
+5: swp1: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:02 brd ff:ff:ff:ff:ff:ff
+6: swp2: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:03 brd ff:ff:ff:ff:ff:ff
+7: swp3: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:04 brd ff:ff:ff:ff:ff:ff
+8: swp4: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:05 brd ff:ff:ff:ff:ff:ff
+9: swp5: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:06 brd ff:ff:ff:ff:ff:ff
+10: swp6: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:07 brd ff:ff:ff:ff:ff:ff
+11: swp7: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:08 brd ff:ff:ff:ff:ff:ff
+12: swp8: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:09 brd ff:ff:ff:ff:ff:ff
+13: swp9: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:0a brd ff:ff:ff:ff:ff:ff
+14: swp10: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:0b brd ff:ff:ff:ff:ff:ff
+15: swp11: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:0c brd ff:ff:ff:ff:ff:ff
+16: swp12: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:0d brd ff:ff:ff:ff:ff:ff
+17: swp13: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:0e brd ff:ff:ff:ff:ff:ff
+18: swp14: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:0f brd ff:ff:ff:ff:ff:ff
+19: swp15: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:10 brd ff:ff:ff:ff:ff:ff
+20: swp16: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:11 brd ff:ff:ff:ff:ff:ff
+21: swp17: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:12 brd ff:ff:ff:ff:ff:ff
+22: swp18: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:13 brd ff:ff:ff:ff:ff:ff
+23: swp19: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:14 brd ff:ff:ff:ff:ff:ff
+24: swp20: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:15 brd ff:ff:ff:ff:ff:ff
+25: swp21: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:16 brd ff:ff:ff:ff:ff:ff
+26: swp22: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:17 brd ff:ff:ff:ff:ff:ff
+27: swp23: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:18 brd ff:ff:ff:ff:ff:ff
+28: swp24: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:19 brd ff:ff:ff:ff:ff:ff
+29: swp25: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:1a brd ff:ff:ff:ff:ff:ff
+30: swp26: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:1b brd ff:ff:ff:ff:ff:ff
+31: swp27: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:1c brd ff:ff:ff:ff:ff:ff
+32: swp29: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:74:72:b1:0c:1e brd ff:ff:ff:ff:ff:ff
+# 
+----
+
+All the interfaces named 'swp*' are the ones located on the switch.
+
+# vim: set ts=4 sw=4 sts=4 tw=80 et cc=80 ft=adoc :

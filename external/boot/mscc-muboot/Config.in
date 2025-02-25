@@ -1,0 +1,26 @@
+config BR2_TARGET_MSCC_MUBOOT
+        bool "mscc-muboot"
+        help
+          Generic target for multiple U-Boot builds
+
+if BR2_TARGET_MSCC_MUBOOT
+
+config BR2_MSCC_MUBOOT_REPO
+	string "U-Boot Git repository"
+
+config BR2_MSCC_MUBOOT_VERSION
+	string "U-Boot version"
+	help
+	  This option allows to use a specific U-Boot version
+
+config BR2_MSCC_MUBOOT_TARGETS
+        string "Multiple U-Boot defconfig targets"
+        help
+          A space-separated list of defconfig names
+
+config BR2_MSCC_MUBOOT_SPL
+        bool "Copy also SPL"
+        help
+         In case that also SPL images need to be copy
+
+endif

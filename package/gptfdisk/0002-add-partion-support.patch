@@ -1,0 +1,121 @@
+From f0abf5743a0ebd400ed669cfa02e183806e029cf Mon Sep 17 00:00:00 2001
+From: Lars Povlsen <lars.povlsen@microchip.com>
+Date: Fri, 30 Sep 2022 15:41:53 +0200
+Subject: [PATCH] Add support for --exchange p1:p2 partition swap by name
+
+---
+ gpt.cc     | 23 +++++++++++++++++++++++
+ gpt.h      |  1 +
+ gptcl.cc   | 10 ++++++++++
+ gptpart.cc |  8 ++++++++
+ gptpart.h  |  1 +
+ 5 files changed, 43 insertions(+)
+
+diff --git a/gpt.cc b/gpt.cc
+index 76cd9ad..59fbf49 100644
+--- a/gpt.cc
++++ b/gpt.cc
+@@ -1994,6 +1994,29 @@ int GPTData::SwapPartitions(uint32_t partNum1, uint32_t partNum2) {
+    return allOK;
+ } // GPTData::SwapPartitions()
+ 
++// Swap the names of two partitions.
++// Returns 1 if successful, 0 if either partition is out of range
++// (that is, not a legal number; either or both can be empty).
++// Note that if partNum1 = partNum2 and this number is in range,
++// and the names are different, it will be considered successful.
++int GPTData::ExchangePartitions(uint32_t partNum1, uint32_t partNum2) {
++   int allOK = 0;
++
++   if ((partNum1 < numParts) && (partNum2 < numParts)) {
++      if (partNum1 != partNum2) {
++	 string s1, s2;
++	 s1 = partitions[partNum1].GetName();
++	 s2 = partitions[partNum2].GetName();
++	 if (s1 != s2) {
++		 partitions[partNum1].SetName(s2);
++		 partitions[partNum2].SetName(s1);
++		 allOK = 1;
++	 }
++      }
++   }
++   return allOK;
++} // GPTData::ExchangePartitions()
++
+ // Set up data structures for entirely new set of partitions on the
+ // specified device. Returns 1 if OK, 0 if there were problems.
+ // Note that this function does NOT clear the protectiveMBR data
+diff --git a/gpt.h b/gpt.h
+index 5d19372..31839b2 100644
+--- a/gpt.h
++++ b/gpt.h
+@@ -147,6 +147,7 @@ public:
+    uint32_t CreatePartition(uint32_t partNum, uint64_t startSector, uint64_t endSector);
+    void SortGPT(void);
+    int SwapPartitions(uint32_t partNum1, uint32_t partNum2);
++   int ExchangePartitions(uint32_t partNum1, uint32_t partNum2);
+    int ClearGPTData(void);
+    void MoveSecondHeaderToEnd();
+    int SetName(uint32_t partNum, const UnicodeString & theName);
+diff --git a/gptcl.cc b/gptcl.cc
+index 0d578eb..ce0088b 100644
+--- a/gptcl.cc
++++ b/gptcl.cc
+@@ -114,6 +114,7 @@ int GPTDataCL::DoOptions(int argc, char* argv[]) {
+       {"disk-guid", 'U', POPT_ARG_STRING, &diskGUID, 'U', "set disk GUID", "guid"},
+       {"verify", 'v', POPT_ARG_NONE, NULL, 'v', "check partition table integrity", ""},
+       {"version", 'V', POPT_ARG_NONE, NULL, 'V', "display version information", ""},
++      {"exchange", 'x', POPT_ARG_STRING, &twoParts, 'x', "swap two partitions by name", "partnum:partnum"},
+       {"zap", 'z', POPT_ARG_NONE, NULL, 'z', "zap (destroy) GPT (but not MBR) data structures", ""},
+       {"zap-all", 'Z', POPT_ARG_NONE, NULL, 'Z', "zap (destroy) GPT and MBR data structures", ""},
+       POPT_AUTOHELP { NULL, 0, 0, NULL, 0 }
+@@ -425,6 +426,15 @@ int GPTDataCL::DoOptions(int argc, char* argv[]) {
+                case 'v':
+                   Verify();
+                   break;
++               case 'x':
++                  JustLooking(0);
++                  p1 = GetInt(twoParts, 1) - 1;
++                  p2 = GetInt(twoParts, 2) - 1;
++                  if (ExchangePartitions((uint32_t) p1, (uint32_t) p2) == 0) {
++                     neverSaveData = 1;
++                     cerr << "Cannot exchange partitions " << p1 + 1 << " and " << p2 + 1 << "\n";
++                  } else saveData = 1;
++		  break;
+                case 'z':
+                   if (!pretend) {
+                      DestroyGPT();
+diff --git a/gptpart.cc b/gptpart.cc
+index 5fe7b5a..f0a6651 100644
+--- a/gptpart.cc
++++ b/gptpart.cc
+@@ -263,6 +263,14 @@ void GPTPart::SetName(const string & theName) {
+ } // GPTPart::SetName(), UTF-8 version
+ #endif
+ 
++string GPTPart::GetName(void) {
++  string s;
++  for (size_t pos = 0; pos < NAME_SIZE && name[pos] != 0; pos++) {
++	  s += (char) name[pos];
++  }
++  return s;
++}
++
+ // Set the name for the partition based on the current GUID partition type
+ // code's associated name
+ void GPTPart::SetDefaultDescription(void) {
+diff --git a/gptpart.h b/gptpart.h
+index ede8139..623c61a 100644
+--- a/gptpart.h
++++ b/gptpart.h
+@@ -79,6 +79,7 @@ class GPTPart {
+       void SetAttributes(uint64_t a) {attributes = a;}
+       void SetAttributes(void) {attributes.ChangeAttributes();}
+       void SetName(const std::string & theName);
++      std::string GetName(void);
+ #ifdef USE_UTF16
+       void SetName(const UnicodeString & theName);
+ #endif
+-- 
+2.38.0
+

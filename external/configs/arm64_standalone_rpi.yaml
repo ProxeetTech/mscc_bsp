@@ -1,0 +1,32 @@
+---
+defconfig_name: "arm64_standalone_rpi_defconfig"
+append_files:
+    - config_file: "external/configs/arm64_standalone_rpi_defconfig"
+      files:
+        - br_target/br_target_arm64.config
+        - br_toolchain/br_toolchain_arm64_glib.config
+        - br_misc/br_tuning.config
+        - br_linux/br_linux_arm.config
+        - br_board/br_board_arm64_standalone_rpi.config
+        - br_misc/br_standalone.config
+        - br_board/br_board_disk.config
+        - br_misc/br_host_tools.config
+        - br_uboot/br_uboot_rpi.config
+      inline: |
+        BR2_LINUX_KERNEL_CONFIG_FRAGMENT_FILES="board/microchip/standalone/arm64_kernel.config"
+        BR2_ROOTFS_OVERLAY="board/mscc/common/rootfs_overlay board/raspberrypi/rootfs_overlay"
+        BR2_TARGET_UBOOT_CONFIG_FRAGMENT_FILES="board/raspberrypi/u-boot.config"
+        # BR2_TARGET_ROOTFS_TAR is not set
+        BR2_PACKAGE_MSCC_CML_UTILS=y
+        BR2_PACKAGE_MSCC_CML_UTILS_VCAP_TOOL=y
+    - config_file: "board/microchip/standalone/arm64_kernel.config"
+      files:
+        - linux_config/linux_iptables.config
+    - config_file: "board/raspberrypi/u-boot.config"
+      inline: |
+        CONFIG_FIT=y
+
+output_packet: "mscc-brsdk-arm64"
+output_path: "arm64-armv8_a-linux-gnu/standalone_rpi/release"
+sdk_path: "arm64-armv8_a-linux-gnu/standalone_rpi/release/x86_64-linux"
+arch: "arm64"

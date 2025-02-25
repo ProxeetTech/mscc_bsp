@@ -1,0 +1,5 @@
+config BR2_PACKAGE_MSCC_QOS_UTILS
+	bool "mscc-qos-utils"
+	help
+	  Tool for configuring qos
+

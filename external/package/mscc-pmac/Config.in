@@ -1,0 +1,5 @@
+config BR2_PACKAGE_MSCC_PMAC
+	bool "mscc-pmac"
+	help
+	  Tool for pmac table
+

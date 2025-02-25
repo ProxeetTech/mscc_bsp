@@ -1,0 +1,90 @@
+1734423667.294087193:start:download            : toolchain-external
+1734423667.347543041:end  :download            : toolchain-external
+1734423667.407407343:start:download            : host-skeleton
+1734423667.453069668:end  :download            : host-skeleton
+1734423667.497524374:start:download            : skeleton
+1734423667.532707954:end  :download            : skeleton
+1734423667.600046737:start:download            : skeleton-init-none
+1734423667.619499292:end  :download            : skeleton-init-none
+1734423667.656519949:start:download            : skeleton-init-common
+1734423667.687044657:end  :download            : skeleton-init-common
+1734423667.734839427:start:download            : toolchain-external-custom
+1734423667.762521185:end  :download            : toolchain-external-custom
+1734423667.802722983:start:download            : toolchain
+1734423667.811105778:end  :download            : toolchain
+1734423667.845534933:start:download            : host-cmake
+1734423668.208115990:end  :download            : host-cmake
+1734423668.245711951:start:download            : host-dosfstools
+1734423668.396483859:end  :download            : host-dosfstools
+1734423668.437718418:start:download            : host-dtc
+1734423668.491464332:end  :download            : host-dtc
+1734423668.523546696:start:download            : host-bison
+1734423668.580069785:end  :download            : host-bison
+1734423668.623197421:start:download            : host-m4
+1734423668.698505234:end  :download            : host-m4
+1734423668.746900439:start:download            : host-flex
+1734423668.824140134:end  :download            : host-flex
+1734423668.870849001:start:download            : host-autoconf
+1734423668.954751590:end  :download            : host-autoconf
+1734423669.013948886:start:download            : host-libtool
+1734423669.078110281:end  :download            : host-libtool
+1734423669.119202233:start:download            : host-automake
+1734423669.198846365:end  :download            : host-automake
+1734423669.229826782:start:download            : host-gettext
+1734423669.248612143:end  :download            : host-gettext
+1734423669.278663937:start:download            : host-gettext-tiny
+1734423669.606924372:end  :download            : host-gettext-tiny
+1734423669.636926681:start:download            : host-pkgconf
+1734423669.675454819:end  :download            : host-pkgconf
+1734423669.735808362:start:download            : host-genext2fs
+1734423669.834530127:end  :download            : host-genext2fs
+1734423669.880304014:start:download            : host-genimage
+1734423670.003879970:end  :download            : host-genimage
+1734423670.041551579:start:download            : host-libconfuse
+1734423670.200131391:end  :download            : host-libconfuse
+1734423670.225508402:start:download            : ifupdown-scripts
+1734423670.234139565:end  :download            : ifupdown-scripts
+1734423670.266857747:start:download            : libzlib
+1734423670.309745378:end  :download            : libzlib
+1734423670.332071602:start:download            : mbedtls
+1734423670.737893107:end  :download            : mbedtls
+1734423670.774298434:start:download            : host-mtd
+1734423670.834332027:end  :download            : host-mtd
+1734423670.876782334:start:download            : host-acl
+1734423671.030202248:end  :download            : host-acl
+1734423671.056796537:start:download            : host-attr
+1734423672.319763377:end  :download            : host-attr
+1734423672.354999859:start:download            : host-lzo
+1734423672.419436798:end  :download            : host-lzo
+1734423672.444998468:start:download            : host-util-linux
+1734423672.542563625:end  :download            : host-util-linux
+1734423672.568699079:start:download            : host-zlib
+1734423672.584446996:end  :download            : host-zlib
+1734423672.607225905:start:download            : host-libzlib
+1734423672.653369110:end  :download            : host-libzlib
+1734423672.676798620:start:download            : host-zstd
+1734423672.793663520:end  :download            : host-zstd
+1734423672.814789658:start:download            : host-mtools
+1734423672.894919826:end  :download            : host-mtools
+1734423672.913123006:start:download            : host-lzip
+1734423672.982075053:end  :download            : host-lzip
+1734423673.006907137:start:download            : host-patchelf
+1734423673.036911133:end  :download            : host-patchelf
+1734423673.058684849:start:download            : host-squashfs
+1734423673.141309589:end  :download            : host-squashfs
+1734423673.166884946:start:download            : host-lz4
+1734423673.254971328:end  :download            : host-lz4
+1734423673.274384527:start:download            : host-xz
+1734423673.383327317:end  :download            : host-xz
+1734423673.407876499:start:download            : host-uboot-tools
+1734423673.552798774:end  :download            : host-uboot-tools
+1734423673.580852991:start:download            : host-openssl
+1734423673.588910371:end  :download            : host-openssl
+1734423673.615234835:start:download            : host-libopenssl
+1734423673.779261758:end  :download            : host-libopenssl
+1734423673.804049835:start:download            : zlib
+1734423673.811942710:end  :download            : zlib
+1734423673.838457505:start:download            : host-fakeroot
+1734423673.954634174:end  :download            : host-fakeroot
+1734423673.983519826:start:download            : host-makedevs
+1734423673.993057142:end  :download            : host-makedevs

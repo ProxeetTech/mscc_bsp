@@ -1,0 +1,19 @@
+---
+defconfig_name: "arm_bootloaders_defconfig"
+append_files:
+    - config_file: "external/configs/arm_bootloaders_defconfig"
+      files:
+        - br_target/br_target_arm.config
+        - br_toolchain/br_toolchain_arm_glib.config
+        - br_misc/br_tuning.config
+        - br_uboot/br_muboot_arm.config
+        - br_uboot/br_uboot_utils.config
+      inline: |
+        # BR2_TARGET_ROOTFS_TAR is not set
+        BR2_PACKAGE_HOST_MSCC_ATF=y
+        BR2_PACKAGE_HOST_MSCC_ATF_VERSION="v2.8.8-mchp1"
+        BR2_ROOTFS_POST_IMAGE_SCRIPT="board/lan966x/gen-uboot.rb"
+
+output_packet: "mscc-brsdk-arm"
+output_path: "arm-cortex_a8-linux-gnu/bootloaders/lan966x"
+arch: "arm"

@@ -1,0 +1,43 @@
+From cdea8e01acb1b36e950df5ad56780fef95c0e302 Mon Sep 17 00:00:00 2001
+From: Horatiu Vultur <horatiu.vultur@microchip.com>
+Date: Tue, 23 Nov 2021 23:01:54 +0100
+Subject: [PATCH] BZ 19367
+
+If libupnp receives numerous SSDP M-Search packets in short time period,
+libupnp cannot handle all packets immediately, this mechanism is to prevent
+this kind of attack. When buffer queue is avaliable to handle new requests,
+UPnP behavior will back to normal. During unavaliable period, console output
+will be full of this message, so suppress it.
+
+Signed-off-by: Palle Christensen <palle.christensen@microsemi.com>
+---
+ upnp/src/threadutil/ThreadPool.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/upnp/src/threadutil/ThreadPool.c b/upnp/src/threadutil/ThreadPool.c
+index 8c098be..1adc535 100644
+--- a/upnp/src/threadutil/ThreadPool.c
++++ b/upnp/src/threadutil/ThreadPool.c
+@@ -837,10 +837,15 @@ int ThreadPoolAdd(ThreadPool *tp, ThreadPoolJob *job, int *jobId)
+ 
+ 	totalJobs = tp->highJobQ.size + tp->lowJobQ.size + tp->medJobQ.size;
+ 	if (totalJobs >= tp->attr.maxJobsTotal) {
+-		fprintf(stderr,
+-			"libupnp ThreadPoolAdd too many jobs: %ld\n",
+-			totalJobs);
+-		goto exit_function;
++	/*
++	    BZ#19367: If libupnp receives numerous SSDP M-Search packets in short time period,
++	    libupnp cannot handle all packets immediately, this mechanism is to prevent
++	    this kind of attack. When buffer queue is avaliable to handle new requests,
++	    UPnP behavior will back to normal. During unavaliable period, console output
++	    will be full of this message, so suppress it.  */
++#ifdef __NOTDEF__
++        fprintf(stderr, "total jobs = %ld, too many jobs", totalJobs);
++#endif
+ 	}
+ 	if (!jobId)
+ 		jobId = &tempId;
+-- 
+2.33.0
+

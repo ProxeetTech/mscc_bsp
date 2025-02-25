@@ -1,0 +1,6 @@
+# Boot via U-Boot and start console
+enable_uart=1
+kernel=u-boot.bin
+uart_2ndstage=1
+arm_64bit=1
+dtoverlay=dwc2

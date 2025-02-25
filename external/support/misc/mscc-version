@@ -1,0 +1,7 @@
+---
+version: 2024.02.6-105-2024.12-soak
+revision: f2ce4637ce92e5f06e05a4697d6df5786b210652
+build_id: 105
+br_version: 2024.02.6
+br_revision: d9b046e634f4b4390e2d36f7224b30851ee1e46c
+toolchain: 2024.02.6-108

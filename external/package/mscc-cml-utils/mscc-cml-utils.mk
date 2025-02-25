@@ -1,0 +1,32 @@
+################################################################################
+#
+# mscc-cml-utils
+#
+################################################################################
+
+MSCC_CML_UTILS_VERSION = b57e0ff7436f86a1cb7dd8b3d6574bf32a5963ff
+MSCC_CML_UTILS_SITE = https://bitbucket.microchip.com/UNGM/cml-utils/archive
+MSCC_CML_UTILS_SOURCE = ${MSCC_CML_UTILS_VERSION}.tar.gz
+MSCC_CML_UTILS_INSTALL_STAGING = YES
+MSCC_CML_UTILS_DEPENDENCIES = libnl
+MSCC_CML_UTILS_CONF_OPTS = -DBUILD_MERGED=OFF -DBUILD_VCAP_API=OFF -DBUILD_MASERATI=OFF -DBUILD_SPARX5=OFF -DBUILD_LAGUNA=OFF
+
+ifeq ($(BR2_PACKAGE_MSCC_CML_UTILS_LAN966X),y)
+	MSCC_CML_UTILS_CONF_OPTS += -DBUILD_MASERATI=ON
+endif
+ifeq ($(BR2_PACKAGE_MSCC_CML_UTILS_SPARX5),y)
+	MSCC_CML_UTILS_CONF_OPTS += -DBUILD_SPARX5=ON
+endif
+ifeq ($(BR2_PACKAGE_MSCC_CML_UTILS_LAN969X),y)
+	MSCC_CML_UTILS_CONF_OPTS += -DBUILD_LAGUNA=ON
+endif
+
+ifeq ($(BR2_PACKAGE_MSCC_CML_UTILS_VCAP_TOOL),y)
+	MSCC_CML_UTILS_CONF_OPTS += -DBUILD_VCAP_API=ON
+endif
+
+MSCC_CML_UTILS_LICENSE = MIT
+MSCC_CML_UTILS_LICENSE_FILES = COPYING
+MSCC_CML_UTILS_ACTUAL_SOURCE_SITE = no upstream
+
+$(eval $(cmake-package))

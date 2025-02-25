@@ -1,0 +1,13 @@
+config BR2_PACKAGE_HOST_MSCC_ATF
+	bool "host mscc-atf"
+	help
+	  ARM Trusted Firmware
+
+if BR2_PACKAGE_HOST_MSCC_ATF
+
+config BR2_PACKAGE_HOST_MSCC_ATF_VERSION
+	string "version of host-atf"
+	help
+	  "Select version of host-atf"
+
+endif

@@ -1,0 +1,15 @@
+---
+defconfig_name: "mipsel_xstax_loader_defconfig"
+append_files:
+    - config_file: "external/configs/mipsel_xstax_loader_defconfig"
+      files:
+        - br_target/br_target_mips.config
+        - br_target/br_target_stage1.config
+        - br_toolchain/br_toolchain_mips_uclib.config
+        - br_misc/br_host_tools.config
+        - br_misc/br_tuning.config
+
+output_packet: "mscc-brsdk-mipsel"
+output_path: "mipsel-mips32r2-linux-uclibc/xstax/release"
+sdk_path: "mipsel-mips32r2-linux-uclibc/xstax/release/x86_64-linux"
+arch: "mips"

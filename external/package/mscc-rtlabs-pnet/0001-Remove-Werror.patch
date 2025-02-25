@@ -1,0 +1,36 @@
+From 72b9549c1a5f7e7560719ab124f8b8e82b20c6e8 Mon Sep 17 00:00:00 2001
+From: Horatiu Vultur <horatiu.vultur@microchip.com>
+Date: Wed, 28 Aug 2024 10:34:14 +0200
+Subject: [PATCH] Remove -Werror
+
+When compiling using glibc which enables the option -D_TIME_BITS=64 then
+the compilation fails because of some warnings regrding printing.
+Currently the project intepresets all warnings are errors therefore
+change this such that build will not fail.
+---
+ cmake/Linux.cmake | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/cmake/Linux.cmake b/cmake/Linux.cmake
+index 2a19f88..df29df1 100644
+--- a/cmake/Linux.cmake
++++ b/cmake/Linux.cmake
+@@ -47,7 +47,6 @@ target_compile_options(profinet
+   PRIVATE
+   -Wall
+   -Wextra
+-  -Werror
+   -Wno-unused-parameter
+   -ffunction-sections
+   -fdata-sections
+@@ -83,7 +82,6 @@ target_compile_options(pn_dev
+   PRIVATE
+   -Wall
+   -Wextra
+-  -Werror
+   -Wno-unused-parameter
+   -ffunction-sections
+   -fdata-sections
+-- 
+2.34.1
+

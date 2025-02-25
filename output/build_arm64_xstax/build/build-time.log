@@ -1,0 +1,196 @@
+1734423668.238086329:start:download            : toolchain-external
+1734423668.256438687:end  :download            : toolchain-external
+1734423668.305520474:start:download            : host-skeleton
+1734423668.328862928:end  :download            : host-skeleton
+1734423668.371289870:start:download            : skeleton
+1734423668.390872658:end  :download            : skeleton
+1734423668.434998360:start:download            : skeleton-init-sysv
+1734423668.448831933:end  :download            : skeleton-init-sysv
+1734423668.481978961:start:download            : skeleton-init-common
+1734423668.502248950:end  :download            : skeleton-init-common
+1734423668.526864583:start:download            : toolchain-external-custom
+1734423668.569615811:end  :download            : toolchain-external-custom
+1734423668.597467245:start:download            : toolchain
+1734423668.613840438:end  :download            : toolchain
+1734423668.639993741:start:download            : busybox
+1734423668.716491079:end  :download            : busybox
+1734423668.758331556:start:download            : e2fsprogs
+1734423668.879044872:end  :download            : e2fsprogs
+1734423668.938888150:start:download            : host-pkgconf
+1734423669.025733364:end  :download            : host-pkgconf
+1734423669.052886256:start:download            : util-linux
+1734423669.175584660:end  :download            : util-linux
+1734423669.201462561:start:download            : host-autoconf
+1734423669.284271599:end  :download            : host-autoconf
+1734423669.314332245:start:download            : host-libtool
+1734423669.374936808:end  :download            : host-libtool
+1734423669.415160960:start:download            : host-m4
+1734423669.484178101:end  :download            : host-m4
+1734423669.507412542:start:download            : host-automake
+1734423669.555136692:end  :download            : host-automake
+1734423669.601453929:start:download            : python3
+1734423670.188826950:end  :download            : python3
+1734423670.220714161:start:download            : host-python3
+1734423670.617150679:end  :download            : host-python3
+1734423670.668758207:start:download            : host-autoconf-archive
+1734423670.749629687:end  :download            : host-autoconf-archive
+1734423670.788845965:start:download            : host-expat
+1734423670.854654059:end  :download            : host-expat
+1734423670.883781459:start:download            : host-libffi
+1734423670.971949471:end  :download            : host-libffi
+1734423671.019511308:start:download            : host-zlib
+1734423671.051936345:end  :download            : host-zlib
+1734423671.104314441:start:download            : host-libzlib
+1734423671.168966330:end  :download            : host-libzlib
+1734423671.205884544:start:download            : libffi
+1734423671.276097170:end  :download            : libffi
+1734423671.313684879:start:download            : zlib
+1734423671.327335269:end  :download            : zlib
+1734423671.367007788:start:download            : libzlib
+1734423671.415371825:end  :download            : libzlib
+1734423671.446819863:start:download            : mtd
+1734423671.531210076:end  :download            : mtd
+1734423671.579360352:start:download            : lzo
+1734423671.738968050:end  :download            : lzo
+1734423671.806975075:start:download            : host-cmake
+1734423671.995684878:end  :download            : host-cmake
+1734423672.027096865:start:download            : ntp
+1734423672.172421703:end  :download            : ntp
+1734423672.208872482:start:download            : libevent
+1734423672.291749874:end  :download            : libevent
+1734423672.316995708:start:download            : pciutils
+1734423672.376919431:end  :download            : pciutils
+1734423672.410082683:start:download            : cryptsetup
+1734423672.607113940:end  :download            : cryptsetup
+1734423672.631121695:start:download            : json-c
+1734423672.661017105:end  :download            : json-c
+1734423672.684940211:start:download            : libargon2
+1734423672.747220925:end  :download            : libargon2
+1734423672.762203095:start:download            : lvm2
+1734423672.895726147:end  :download            : lvm2
+1734423672.917470571:start:download            : libaio
+1734423672.979723912:end  :download            : libaio
+1734423673.001569141:start:download            : popt
+1734423673.097574077:end  :download            : popt
+1734423673.124455701:start:download            : host-dosfstools
+1734423673.159388377:end  :download            : host-dosfstools
+1734423673.182822982:start:download            : dropbear
+1734423673.226514844:end  :download            : dropbear
+1734423673.248399666:start:download            : host-dtc
+1734423673.276426481:end  :download            : host-dtc
+1734423673.294036099:start:download            : host-bison
+1734423673.346191954:end  :download            : host-bison
+1734423673.381012720:start:download            : host-flex
+1734423673.415674765:end  :download            : host-flex
+1734423673.433513140:start:download            : host-gettext
+1734423673.440388278:end  :download            : host-gettext
+1734423673.461853525:start:download            : host-gettext-tiny
+1734423673.678885162:end  :download            : host-gettext-tiny
+1734423673.702763309:start:download            : host-e2fsprogs
+1734423673.778423859:end  :download            : host-e2fsprogs
+1734423673.805495654:start:download            : host-util-linux
+1734423673.916681262:end  :download            : host-util-linux
+1734423673.939737799:start:download            : host-genext2fs
+1734423673.970937669:end  :download            : host-genext2fs
+1734423673.992899549:start:download            : host-genimage
+1734423674.021902823:end  :download            : host-genimage
+1734423674.054899128:start:download            : host-libconfuse
+1734423674.098138006:end  :download            : host-libconfuse
+1734423674.115428618:start:download            : gptfdisk
+1734423674.207002482:end  :download            : gptfdisk
+1734423674.228658335:start:download            : hiawatha
+1734423674.264660608:end  :download            : hiawatha
+1734423674.285834853:start:download            : ifupdown-scripts
+1734423674.292648205:end  :download            : ifupdown-scripts
+1734423674.316499322:start:download            : initscripts
+1734423674.326192235:end  :download            : initscripts
+1734423674.353035262:start:download            : iptables
+1734423674.393671034:end  :download            : iptables
+1734423674.415823919:start:download            : host-kmod
+1734423674.462913224:end  :download            : host-kmod
+1734423674.485587941:start:download            : libcurl
+1734423674.529203468:end  :download            : libcurl
+1734423674.550869855:start:download            : libssh2
+1734423674.587172509:end  :download            : libssh2
+1734423674.607563031:start:download            : mbedtls
+1734423674.666094916:end  :download            : mbedtls
+1734423674.690755369:start:download            : libfcgi
+1734423674.718504099:end  :download            : libfcgi
+1734423674.741765944:start:download            : libnet
+1734423674.775675832:end  :download            : libnet
+1734423674.800337168:start:download            : libupnp
+1734423674.836804932:end  :download            : libupnp
+1734423674.861366187:start:download            : host-mtd
+1734423674.888707048:end  :download            : host-mtd
+1734423674.910603254:start:download            : host-acl
+1734423674.935490951:end  :download            : host-acl
+1734423674.955932557:start:download            : host-attr
+1734423674.990079600:end  :download            : host-attr
+1734423675.005072199:start:download            : host-lzo
+1734423675.052375412:end  :download            : host-lzo
+1734423675.074003848:start:download            : host-zstd
+1734423675.117496329:end  :download            : host-zstd
+1734423675.140047959:start:download            : host-mtools
+1734423675.171237278:end  :download            : host-mtools
+1734423675.193931129:start:download            : host-lzip
+1734423675.222843902:end  :download            : host-lzip
+1734423675.243744695:start:download            : netsnmp
+1734423675.309428811:end  :download            : netsnmp
+1734423675.328016315:start:download            : host-patchelf
+1734423675.355505506:end  :download            : host-patchelf
+1734423675.378740222:start:download            : python-cffi
+1734423675.545482559:end  :download            : python-cffi
+1734423675.570029801:start:download            : host-python-setuptools
+1734423675.627895958:end  :download            : host-python-setuptools
+1734423675.651275452:start:download            : host-python-installer
+1734423675.718807095:end  :download            : host-python-installer
+1734423675.751922722:start:download            : host-python-flit-core
+1734423675.809995367:end  :download            : host-python-flit-core
+1734423675.832235009:start:download            : host-python-pypa-build
+1734423675.885749998:end  :download            : host-python-pypa-build
+1734423675.917578890:start:download            : host-python-packaging
+1734423675.982723318:end  :download            : host-python-packaging
+1734423676.016098280:start:download            : host-python-pyproject-hooks
+1734423676.066781551:end  :download            : host-python-pyproject-hooks
+1734423676.090585184:start:download            : host-python-wheel
+1734423676.135317297:end  :download            : host-python-wheel
+1734423676.168838215:start:download            : python-pycparser
+1734423676.460259985:end  :download            : python-pycparser
+1734423676.476408471:start:download            : python-smbus-cffi
+1734423676.617112099:end  :download            : python-smbus-cffi
+1734423676.636495412:start:download            : host-python-cffi
+1734423676.663094271:end  :download            : host-python-cffi
+1734423676.678310871:start:download            : host-python-pycparser
+1734423676.702947807:end  :download            : host-python-pycparser
+1734423676.718464459:start:download            : host-squashfs
+1734423676.747563234:end  :download            : host-squashfs
+1734423676.764038263:start:download            : host-lz4
+1734423676.790874672:end  :download            : host-lz4
+1734423676.823588340:start:download            : host-xz
+1734423676.875186514:end  :download            : host-xz
+1734423676.896178116:start:download            : strace
+1734423676.951200962:end  :download            : strace
+1734423676.985529437:start:download            : uboot-tools
+1734423677.149244264:end  :download            : uboot-tools
+1734423677.169880207:start:download            : host-uboot-tools
+1734423677.479992543:end  :download            : host-uboot-tools
+1734423677.500492217:start:download            : host-openssl
+1734423677.511886068:end  :download            : host-openssl
+1734423677.525642699:start:download            : host-libopenssl
+1734423677.679549444:end  :download            : host-libopenssl
+1734423677.705024897:start:download            : urandom-scripts
+1734423677.715215438:end  :download            : urandom-scripts
+1734423677.743010435:start:download            : linux
+1734423679.188922978:end  :download            : linux
+1734423679.205734170:start:download            : host-fakeroot
+1734423679.236393313:end  :download            : host-fakeroot
+1734423679.256053077:start:download            : host-makedevs
+1734423679.266544625:end  :download            : host-makedevs
+1734423679.291165638:start:download            : host-mkpasswd
+1734423679.304365453:end  :download            : host-mkpasswd
+1734423679.324518621:start:download            : mscc-dts-overlays
+1734423679.389695009:end  :download            : mscc-dts-overlays
+1734423679.430622065:start:download            : mscc-otp
+1734423679.521469368:end  :download            : mscc-otp
+1734423679.546742240:start:download            : mscc-xz-embedded
+1734423679.596073350:end  :download            : mscc-xz-embedded

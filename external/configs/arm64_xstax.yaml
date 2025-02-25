@@ -1,0 +1,31 @@
+---
+defconfig_name: "arm64_xstax_defconfig"
+append_files:
+    - config_file: "external/configs/arm64_xstax_defconfig"
+      files:
+        - br_target/br_target_arm64.config
+        - br_toolchain/br_toolchain_arm64_glib.config
+        - br_misc/br_tuning.config
+        - br_linux/br_linux_arm.config
+        - br_board/br_board_arm64_xstax.config
+        - br_misc/br_xstax.config
+        - br_board/br_board_disk.config
+        - br_misc/br_host_tools.config
+      inline: |
+        BR2_LINUX_KERNEL_CONFIG_FRAGMENT_FILES="board/microchip/xstax/arm64_kernel.config"
+        BR2_PACKAGE_PYTHON3=y
+        BR2_PACKAGE_PYTHON_SMBUS_CFFI=y
+        BR2_PACKAGE_CRYPTSETUP=y
+        # BR2_PACKAGE_MSCC_CML_UTILS is not set
+        BR2_PACKAGE_MSCC_OTP=y
+    - config_file: "package/busybox/mscc_fragment.config"
+      files:
+        - busybox_config/busybox_fragment.config
+    - config_file: "board/microchip/xstax/arm64_kernel.config"
+      files:
+        - linux_config/linux_iptables.config
+
+output_packet: "mscc-brsdk-arm64"
+output_path: "arm64-armv8_a-linux-gnu/xstax/release"
+sdk_path: "arm64-armv8_a-linux-gnu/xstax/release/x86_64-linux"
+arch: "arm64"

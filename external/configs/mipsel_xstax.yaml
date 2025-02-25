@@ -1,0 +1,26 @@
+---
+defconfig_name: "mipsel_xstax_defconfig"
+append_files:
+    - config_file: "external/configs/mipsel_xstax_defconfig"
+      files:
+        - br_target/br_target_mips.config
+        - br_toolchain/br_toolchain_mips_glib.config
+        - br_misc/br_tuning.config
+        - br_linux/br_linux.config
+        - br_board/br_board_mipsel_xstax.config
+        - br_misc/br_xstax.config
+        - br_misc/br_host_tools.config
+      inline: |
+        BR2_LINUX_KERNEL_CONFIG_FRAGMENT_FILES="board/microchip/xstax/mipsel_kernel.config"
+        # BR2_PACKAGE_MSCC_DTS_OVERLAYS is not set
+    - config_file: "package/busybox/mscc_fragment.config"
+      files:
+        - busybox_config/busybox_fragment.config
+    - config_file: "board/microchip/xstax/mipsel_kernel.config"
+      files:
+        - linux_config/linux_iptables.config
+
+output_packet: "mscc-brsdk-mipsel"
+output_path: "mipsel-mips32r2-linux-gnu/xstax/release"
+sdk_path: "mipsel-mips32r2-linux-gnu/xstax/release/x86_64-linux"
+arch: "mips"

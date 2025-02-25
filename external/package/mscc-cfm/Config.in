@@ -1,0 +1,7 @@
+config BR2_PACKAGE_MSCC_CFM
+	bool "mscc-cfm"
+	select BR2_PACKAGE_LIBNL
+	select BR2_PACKAGE_LIBEV
+	select BR2_PACKAGE_LIBMNL
+	help
+	  Continuity Fault Management

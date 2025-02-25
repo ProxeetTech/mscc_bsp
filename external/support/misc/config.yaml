@@ -1,0 +1,11 @@
+---
+buildroot: 2024.02.6
+branch: master
+tool_ver: 2024.02.6-108
+tool_br: toolchain
+vars:
+    MSCC_TOOLCHAIN: 2024.02.6-108
+    MSCC_LINUX_KERNEL_SHA: 3df98e5ca722ed7bbc2ede0f76dbf492a8224ddc
+    MSCC_UBOOT_SHA: d01a625c5262bf1f716d424da64c3dfd248d85b4
+    MSCC_UBOOT_MIPS_SHA: 5c02702462885c883f5cc7c4c2ce3fabedbff694
+    MSCC_UBOOT_LS1046_SHA: d091660afab6de96eb0b95a8e4d8142e25536a08

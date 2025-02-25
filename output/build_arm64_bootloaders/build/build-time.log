@@ -1,0 +1,52 @@
+1734423668.241661884:start:download            : toolchain-external
+1734423668.254695686:end  :download            : toolchain-external
+1734423668.284532290:start:download            : host-skeleton
+1734423668.303488104:end  :download            : host-skeleton
+1734423668.336644034:start:download            : skeleton
+1734423668.348251876:end  :download            : skeleton
+1734423668.379225185:start:download            : skeleton-init-none
+1734423668.398822764:end  :download            : skeleton-init-none
+1734423668.453740752:start:download            : skeleton-init-common
+1734423668.473309052:end  :download            : skeleton-init-common
+1734423668.515412563:start:download            : toolchain-external-custom
+1734423668.541497098:end  :download            : toolchain-external-custom
+1734423668.578849657:start:download            : toolchain
+1734423668.600647510:end  :download            : toolchain
+1734423668.639182251:start:download            : host-dtc
+1734423668.706759498:end  :download            : host-dtc
+1734423668.745264725:start:download            : host-bison
+1734423668.826527084:end  :download            : host-bison
+1734423668.862305593:start:download            : host-m4
+1734423668.934621299:end  :download            : host-m4
+1734423668.983914610:start:download            : host-flex
+1734423669.077009030:end  :download            : host-flex
+1734423669.112233016:start:download            : host-autoconf
+1734423669.195374568:end  :download            : host-autoconf
+1734423669.230821232:start:download            : host-libtool
+1734423669.305547429:end  :download            : host-libtool
+1734423669.334099844:start:download            : host-automake
+1734423669.411562805:end  :download            : host-automake
+1734423669.443424563:start:download            : host-gettext
+1734423669.460925895:end  :download            : host-gettext
+1734423669.486974836:start:download            : host-gettext-tiny
+1734423669.710365919:end  :download            : host-gettext-tiny
+1734423669.737422249:start:download            : host-pkgconf
+1734423669.778408363:end  :download            : host-pkgconf
+1734423669.803401432:start:download            : ifupdown-scripts
+1734423669.817941238:end  :download            : ifupdown-scripts
+1734423669.850841677:start:download            : host-patchelf
+1734423669.910794318:end  :download            : host-patchelf
+1734423669.940826007:start:download            : host-uboot-tools
+1734423670.564541275:end  :download            : host-uboot-tools
+1734423670.597375696:start:download            : host-openssl
+1734423670.615812257:end  :download            : host-openssl
+1734423670.660798573:start:download            : host-libopenssl
+1734423671.064918817:end  :download            : host-libopenssl
+1734423671.118366730:start:download            : host-zlib
+1734423671.134909268:end  :download            : host-zlib
+1734423671.170374494:start:download            : host-libzlib
+1734423671.215625982:end  :download            : host-libzlib
+1734423671.263246229:start:download            : mscc-muboot
+1734423671.346808425:end  :download            : mscc-muboot
+1734423671.382880780:start:download            : host-mscc-atf
+1734423671.443754584:end  :download            : host-mscc-atf

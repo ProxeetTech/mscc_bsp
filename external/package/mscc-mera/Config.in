@@ -1,0 +1,5 @@
+config BR2_PACKAGE_MSCC_MERA
+	bool "mscc-mera"
+	help
+	  Library for Microchip Ethernet RTE API
+

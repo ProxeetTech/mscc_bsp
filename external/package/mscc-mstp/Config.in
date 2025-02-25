@@ -1,0 +1,5 @@
+config BR2_PACKAGE_MSCC_MSTP
+	bool "mscc-mstp"
+	help
+	  Tool for configuring mstp
+
