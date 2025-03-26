@@ -1,0 +1,41 @@
+#!/bin/sh
+
+NAME_POED=poed
+DESC="PoE daemon"
+LOCKFILE_POED=/var/lock/$NAME_POED
+
+case "$1" in
+  start)
+    echo "Starting $DESC: "
+    if [ -e $LOCKFILE_POED ]; then
+      echo "$DESC is already running."
+      exit 1
+    fi
+    echo "Create $LOCKFILE_POED"
+    touch $LOCKFILE_POED
+    
+    echo "Run $NAME_POED"
+    /usr/bin/poed -d > /dev/null 2>&1 &
+    [ $? = 0 ] && echo "Starting $DESC - OK" || echo "Starting $DESC - FAIL"
+    ;;
+  stop)
+    echo "Stopping $DESC: "
+    killall $NAME_POED
+    rm -f $LOCKFILE_POED
+    echo "OK"
+    ;;
+  restart)
+    echo "Restarting $DESC: "
+    $0 stop
+    $0 start
+    ;;
+  status)
+    status_of_proc -p $PIDFILE $DAEMON $NAME && exit 0 || exit $?
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart|status}"
+    exit 1
+    ;;
+esac
+
+exit 0

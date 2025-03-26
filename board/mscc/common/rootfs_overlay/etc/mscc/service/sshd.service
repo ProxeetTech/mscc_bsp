@@ -1,0 +1,6 @@
+name = sshd
+type = service
+on_error = respawn
+cmd = /usr/sbin/sshd
+serviced_profile = debug
+ready_file = /tmp/sshd.ready

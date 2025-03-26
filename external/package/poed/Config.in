@@ -1,0 +1,5 @@
+config BR2_PACKAGE_POED
+	bool "poed"
+	help
+	  Daemon for managing PoE (Specific driver required)
+

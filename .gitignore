@@ -13,6 +13,11 @@ output/*/*.tmp
 output/*/*.log
 output/*/*.menus
 output/*/*.paths
+output/*.zip
+output/*/.config
+output/*/.br2-external*
+.idea
+dl/*
 *.bin
 *.log
 *.fip

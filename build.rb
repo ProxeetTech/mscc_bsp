@@ -413,7 +413,7 @@ if $step == "all" or $step == "pack"
         sys "pack>", "mv  #{result_folder}/*.log #{log_folder}/"
 
         generate_sdk_setup "#{conf["arch"]}", "#{packetdir}"
-        update_legal_info legal_output
+        #update_legal_info legal_output
     end
 
     result_folders = result_folders.uniq
