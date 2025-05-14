@@ -8,8 +8,8 @@ config BR2_EXTERNAL_NAMES
 
 config BR2_EXTERNAL_MSCC_PATH
 	string
-	default "/home/jenkins/workspace/workspace/uildroot-layer_2024.12-soak-53K4HQKQZ3GAT5LLFJOV4C3542MQ6JDRNGG7GUC4NZK77OMALONA/ws/mscc-brsdk-source-2024.02.6-105-2024.12-soak/external"
+	default "/home/docet/sw/proxeet/microchip_switch/mscc_dwnld/mscc-brsdk-source-2024.12/external"
 config BR2_EXTERNAL_MSCC_VERSION
 	string
-	default "2024.02.6-14-gc68708e63f-dirty"
+	default "-g68b439a5-dirty"
 

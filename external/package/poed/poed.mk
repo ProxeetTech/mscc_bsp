@@ -10,12 +10,6 @@ POED_GIT_SUBMODULES = YES
 #	$(INSTALL) -m 0755 -D external/package/poed/uci_cfg_poed $(TARGET_DIR)/etc/config/poed
 #endef
 
-POED_POST_INSTALL_TARGET_HOOKS += POED_INSTALL_UCI_CONFIG
-
-define POED_INSTALL_UCI_CONFIG
-	$(INSTALL) -m 0755 -D external/package/poed/uci_cfg_poed $(TARGET_DIR)/etc/config/poed
-endef
-
 define POED_INSTALL_INIT_SYSV
 	$(INSTALL) -m 0755 -D external/package/poed/S58poed $(TARGET_DIR)/etc/init.d/S58poed
 endef

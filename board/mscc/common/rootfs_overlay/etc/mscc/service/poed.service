@@ -1,0 +1,7 @@
+name = poed
+type = service
+on_error = ignore
+cmd = /usr/bin/poed -d
+serviced_profile = webstax
+depend = switch_app
+ready_file = /tmp/poed.ready
